@@ -13,7 +13,7 @@ RUN echo http://mirrors.aliyun.com/alpine/v3.6/main > /etc/apk/repositories; \
 
 COPY nginx.vh.default.conf /etc/nginx/sites-available/default.conf
 ADD index.php /var/www/html/public/index.php
-
+VOLUME ["/var/www/html/storage"]
 EXPOSE 443 80
 
 CMD ["/start.sh"]
