@@ -7,6 +7,7 @@ ENV COMPOSER_ALLOW_SUPERUSER=1
 ENV GIT_USERNAME=yaochenfeng
 ENV GIT_EMAIL=282696845@qq.com
 WORKDIR /var/www/html
+VOLUME /root/.composer/
 
 RUN echo http://mirrors.aliyun.com/alpine/v3.6/main > /etc/apk/repositories;
 
