@@ -2,8 +2,8 @@ FROM richarvey/nginx-php-fpm:latest
 MAINTAINER yaochenfeng <282696845@qq.com>
 
 
-ENV WEBROOT=/var/www/html/public;
-ENV COMPOSER_ALLOW_SUPERUSER=1;
+ENV WEBROOT=/var/www/html/public
+ENV COMPOSER_ALLOW_SUPERUSER=1
 ENV GIT_USERNAME=yaochenfeng
 ENV GIT_EMAIL=282696845@qq.com
 WORKDIR /var/www/html
