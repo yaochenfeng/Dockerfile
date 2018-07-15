@@ -41,12 +41,20 @@ if [ "$DJANGO_COMPRESS" == "true" ]; then
     python manage.py compress
 fi
 # install requirements.txt
-echo "starting install)"
+
 if [ -z "$SKIP_INSTALL" ]; then
+    echo "starting install)"
         # Try auto install for composer
     if [ -f "/usr/django/app/requirements.txt" ]; then
         pip install --no-cache-dir -r requirements.txt -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
     fi
+    
+fi
+
+if [ -z "$DJANGO_APP" ]; then
+        # Try auto install for composer
+    DJANGO_APP="website"
+    django-admin startproject ${DJANGO_APP} /usr/django/app
     
 fi
 # start gunicorn
