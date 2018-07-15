@@ -55,6 +55,7 @@ if [ -z "$DJANGO_APP" ]; then
         # Try auto install for composer
     DJANGO_APP="website"
     django-admin startproject ${DJANGO_APP} /usr/django/app
+    sed -i "28 c\ALLOWED_HOSTS = ['*']" /usr/django/app/${DJANGO_APP}/settings.py
     
 fi
 # start gunicorn
