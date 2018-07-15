@@ -45,7 +45,7 @@ echo "starting install)"
 if [ -z "$SKIP_INSTALL" ]; then
         # Try auto install for composer
     if [ -f "/usr/django/app/requirements.txt" ]; then
-        pip install --no-cache-dir -r /usr/django/app/requirements.txt
+        pip install --no-cache-dir -r requirements.txt -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
     fi
     
 fi
