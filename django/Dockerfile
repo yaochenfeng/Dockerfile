@@ -20,7 +20,7 @@ RUN mkdir -p /var/www/static \
 
 
 VOLUME /var/www/static
-# VOLUME /usr/django/app
+VOLUME /usr/django/app
 
 
 
