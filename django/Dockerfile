@@ -14,7 +14,6 @@ RUN mkdir -p /var/www/static \
 	&&mkdir -p /etc/gunicorn \
 	&&groupadd -r django \
 	&& useradd --no-log-init -r -g django django \
-	&& chown django:django /usr/django/app \
 	&&pip install gunicorn==$GUNICORN_VERSION \
 	&&pip install django==$DJANGO_VERSION
 
