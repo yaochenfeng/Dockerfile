@@ -15,7 +15,8 @@ RUN mkdir -p /var/www/static \
 	&&groupadd -r django \
 	&& useradd --no-log-init -r -g django django \
 	&&pip install gunicorn==$GUNICORN_VERSION \
-	&&pip install django==$DJANGO_VERSION
+	&&pip install django==$DJANGO_VERSION \
+	&&pip install mysqlclient
 
 
 
