@@ -15,7 +15,10 @@ executeManagementCommands() {
         python manage.py ${COMMAND}
     done
 }
-
+# 添加权限
+if [ -z "$SKIP_DOCKER" ]; then
+    chown -R django /usr/django/app
+fi
 # run django management commands without starting gunicorn afterwards
 if [ ${#DJANGO_MANAGEMENT_JOB_ARRAY[@]} -ne 0 ]; then
     executeManagementCommands "${DJANGO_MANAGEMENT_JOB_ARRAY[@]}"
@@ -27,19 +30,6 @@ if [ ${#DJANGO_MANAGEMENT_ON_START_ARRAY[@]} -ne 0 ]; then
     executeManagementCommands "${DJANGO_MANAGEMENT_ON_START_ARRAY[@]}"
 fi
 
-# support for deprecated management command variables
-if [ "$DJANGO_MIGRATE" == "true" ]; then
-    echo "WARNING: usage of deprecated variable DJANGO_MIGRATE, please migrate to DJANGO_MANAGEMENT_ON_START"
-    python manage.py migrate --noinput
-fi
-if [ "$DJANGO_COLLECTSTATIC" == "true" ]; then
-    echo "WARNING: usage of deprecated variable DJANGO_COLLECTSTATIC, please migrate to DJANGO_MANAGEMENT_ON_START"
-    python manage.py collectstatic --noinput
-fi
-if [ "$DJANGO_COMPRESS" == "true" ]; then
-    echo "WARNING: usage of deprecated variable DJANGO_COMPRESS, please migrate to DJANGO_MANAGEMENT_ON_START"
-    python manage.py compress
-fi
 # install requirements.txt
 
 if [ -z "$SKIP_INSTALL" ]; then

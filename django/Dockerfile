@@ -19,13 +19,6 @@ RUN mkdir -p /var/www/static \
 	&&pip install mysqlclient
 
 
-
-VOLUME /var/www/static
-
-
-
-
-
 # add gunicorn config
 COPY gunicorn.conf /etc/gunicorn/
 
