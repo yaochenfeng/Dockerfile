@@ -14,9 +14,9 @@ RUN mkdir -p /var/www/static \
 	&&mkdir -p /etc/gunicorn \
 	&&groupadd -r django \
 	&& useradd --no-log-init -r -g django django \
-	&&pip install gunicorn==$GUNICORN_VERSION \
-	&&pip install django==$DJANGO_VERSION \
-	&&pip install mysqlclient
+	&&pip install --no-cache-dir gunicorn==$GUNICORN_VERSION \
+	&&pip install --no-cache-dir django==$DJANGO_VERSION \
+	&&pip install --no-cache-dir mysqlclient
 
 
 # add gunicorn config
