@@ -17,7 +17,7 @@ executeManagementCommands() {
 }
 # 添加权限
 if [ -z "$SKIP_DOCKER" ]; then
-    chown -R django /usr/django/app
+    chown -R nobody /usr/django/app
 fi
 # run django management commands without starting gunicorn afterwards
 if [ ${#DJANGO_MANAGEMENT_JOB_ARRAY[@]} -ne 0 ]; then
