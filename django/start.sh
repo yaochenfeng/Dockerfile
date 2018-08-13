@@ -15,10 +15,7 @@ executeManagementCommands() {
         python manage.py ${COMMAND}
     done
 }
-# 添加权限
-if [ -z "$SKIP_DOCKER" ]; then
-    chown -R nobody /usr/django/app
-fi
+
 # run django management commands without starting gunicorn afterwards
 if [ ${#DJANGO_MANAGEMENT_JOB_ARRAY[@]} -ne 0 ]; then
     executeManagementCommands "${DJANGO_MANAGEMENT_JOB_ARRAY[@]}"
@@ -47,6 +44,10 @@ if [ -z "$DJANGO_APP" ]; then
     django-admin startproject ${DJANGO_APP} /usr/django/app
     sed -i "28 c\ALLOWED_HOSTS = ['*']" /usr/django/app/${DJANGO_APP}/settings.py
     
+fi
+# 添加权限
+if [ -z "$SKIP_DOCKER" ]; then
+    chown -R nobody /usr/django/app
 fi
 # start gunicorn
 echo "starting gunicorn (PORT=${PORT}, RELOAD=${GUNICORN_RELOAD:-false}, APP=${DJANGO_APP})"
