@@ -46,8 +46,8 @@ if [ -z "$DJANGO_APP" ]; then
     
 fi
 # 添加权限
-if [ -z "$SKIP_DOCKER" ]; then
-    chown -R nobody /usr/django/app
+if [ -z "$SKIP_DOCKER_WRITE" ]; then
+    chmod 777 -R /usr/django/app
 fi
 # start gunicorn
 echo "starting gunicorn (PORT=${PORT}, RELOAD=${GUNICORN_RELOAD:-false}, APP=${DJANGO_APP})"
