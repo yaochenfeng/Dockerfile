@@ -8,6 +8,17 @@ DJANGO_MANAGEMENT_JOB_ARRAY=(${DJANGO_MANAGEMENT_JOB})
 DJANGO_MANAGEMENT_ON_START_ARRAY=(${DJANGO_MANAGEMENT_ON_START})
 unset IFS
 
+# install requirements.txt
+
+if [ -z "$SKIP_INSTALL" ]; then
+    echo "starting install)"
+        # Try auto install for composer
+    if [ -f "/usr/django/app/requirements.txt" ]; then
+        pip install --no-cache-dir -r requirements.txt -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+    fi
+    
+fi
+
 executeManagementCommands() {
     COMMAND_ARRAY=("$@")
     for COMMAND in "${COMMAND_ARRAY[@]}"; do
@@ -25,17 +36,6 @@ fi
 # run django management commands before starting gunicorn
 if [ ${#DJANGO_MANAGEMENT_ON_START_ARRAY[@]} -ne 0 ]; then
     executeManagementCommands "${DJANGO_MANAGEMENT_ON_START_ARRAY[@]}"
-fi
-
-# install requirements.txt
-
-if [ -z "$SKIP_INSTALL" ]; then
-    echo "starting install)"
-        # Try auto install for composer
-    if [ -f "/usr/django/app/requirements.txt" ]; then
-        pip install --no-cache-dir -r requirements.txt -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
-    fi
-    
 fi
 
 if [ -z "$DJANGO_APP" ]; then
