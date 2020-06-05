@@ -1,0 +1,1 @@
+java -jar atlassian-agent.jar -d -m 邮箱 -n 名称 -p jira -o h访问地址 -s 服务器ID
