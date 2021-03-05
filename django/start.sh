@@ -10,14 +10,14 @@ unset IFS
 
 # install requirements.txt
 
-if [ -z "$SKIP_INSTALL" ]; then
-    echo "starting install)"
-        # Try auto install for composer
-    if [ -f "/usr/django/app/requirements.txt" ]; then
-        pip install --no-cache-dir -r requirements.txt -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
-    fi
+# if [ -z "$SKIP_INSTALL" ]; then
+#     echo "starting install)"
+#         # Try auto install for composer
+#     if [ -f "/usr/django/app/requirements.txt" ]; then
+#         pip install --no-cache-dir -r requirements.txt -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+#     fi
     
-fi
+# fi
 
 executeManagementCommands() {
     COMMAND_ARRAY=("$@")

@@ -13,11 +13,9 @@ RUN mkdir -p /var/www/static \
     && mkdir -p /usr/django/app \
 	&&mkdir -p /etc/gunicorn \
 	&&groupadd -r django \
-	&& useradd --no-log-init -r -g django django \
-	&&pip install --no-cache-dir gunicorn==$GUNICORN_VERSION \
-	&&pip install --no-cache-dir django==$DJANGO_VERSION \
-	&&pip install --no-cache-dir mysqlclient
+	&& useradd --no-log-init -r -g django django 
 
+RUN pip install --upgrade pip --no-cache-dir -i https://mirrors.aliyun.com/pypi/simple/ mysqlclient gunicorn==$GUNICORN_VERSION django==${DJANGO_VERSION}
 
 # add gunicorn config
 COPY gunicorn.conf /etc/gunicorn/
@@ -26,6 +24,10 @@ COPY gunicorn.conf /etc/gunicorn/
 COPY start.sh /usr/django/
 WORKDIR /usr/django/app
 
+ONBUILD COPY . /usr/django/app
+ONBUILD RUN if test -e requirements.txt; then \
+			pip install --upgrade pip --no-cache-dir -i https://mirrors.aliyun.com/pypi/simple/ -r requirements.txt; \
+		fi
+
 EXPOSE $PORT
 CMD bash /usr/django/start.sh
-
