@@ -15,19 +15,15 @@ RUN mkdir -p /var/www/static \
 	&&groupadd -r django \
 	&& useradd --no-log-init -r -g django django 
 
-RUN pip install --upgrade pip --no-cache-dir -i https://mirrors.aliyun.com/pypi/simple/ mysqlclient gunicorn==$GUNICORN_VERSION django==${DJANGO_VERSION}
+RUN pip install --upgrade pip --no-cache-dir -i https://mirrors.aliyun.com/pypi/simple/ mysqlclient gunicorn django
 
 # add gunicorn config
 COPY gunicorn.conf /etc/gunicorn/
-
-# run start.sh on container start
 COPY start.sh /usr/django/
 WORKDIR /usr/django/app
-
+ONBUILD COPY requirements.txt /usr/django/
+ONBUILD RUN pip install --upgrade pip --no-cache-dir -i https://mirrors.aliyun.com/pypi/simple/ -r /usr/django/requirements.txt
 ONBUILD COPY . /usr/django/app
-ONBUILD RUN if test -e requirements.txt; then \
-			pip install --upgrade pip --no-cache-dir -i https://mirrors.aliyun.com/pypi/simple/ -r requirements.txt; \
-		fi
 
 EXPOSE $PORT
 CMD bash /usr/django/start.sh
