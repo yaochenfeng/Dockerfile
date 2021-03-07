@@ -5,7 +5,7 @@ MAINTAINER yaochenfeng <282696845@qq.com>
 ENV PORT=8000 \
     TZ=Asia/Shanghai \
     GUNICORN_VERSION=19.9.0 \
-    DJANGO_VERSION=2.2.2
+    PROJECT=website
 
 # create user which will be used to run gunicorn
 # install gunicorn, django
