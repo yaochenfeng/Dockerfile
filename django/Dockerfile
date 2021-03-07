@@ -24,6 +24,12 @@ WORKDIR /usr/django/app
 ONBUILD COPY requirements.txt /usr/django/
 ONBUILD RUN pip install --upgrade pip --no-cache-dir -i https://mirrors.aliyun.com/pypi/simple/ -r /usr/django/requirements.txt
 ONBUILD COPY . /usr/django/app
-
+ONBUILD RUN echo "**** cleanup ****" \
+		&&  apt-get clean \
+		&&  rm -rf \
+			/tmp/* \
+			/var/lib/apt/lists/* \
+			/var/tmp/*
+			
 EXPOSE $PORT
 CMD bash /usr/django/start.sh
